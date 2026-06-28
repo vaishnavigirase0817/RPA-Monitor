@@ -1,0 +1,682 @@
+/* ================================================================
+   RPA Monitor — Enterprise Design System
+   Warm Premium Light Theme — CSS Grid Layout Architecture
+   ================================================================ */
+
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------
+   1. CSS Custom Properties (Design Tokens) — 8px Grid System
+   ---------------------------------------------------------------- */
+:root {
+  /* Primary palette */
+  --primary-100: #E4C4B4;
+  --primary-200: #C8957A;
+  --primary-300: #B47857;
+
+  /* Neutrals — warm tones */
+  --warm-white: #FDF8F4;
+  --soft-cream: #FAF0E6;
+  --light-beige: #F5E6D8;
+  --very-light-orange: #FFF3E8;
+  --warm-gray-100: #B8A99A;
+  --warm-gray-200: #8C7B6B;
+  --warm-gray-300: #5C4E40;
+
+  /* Semantic */
+  --success: #4CAF50;
+  --success-light: #E8F5E9;
+  --warning: #FF9800;
+  --warning-light: #FFF3E0;
+  --error: #E53935;
+  --error-light: #FFEBEE;
+  --info: #2196F3;
+  --info-light: #E3F2FD;
+
+  /* Elevation / Shadows */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(228, 196, 180, 0.35);
+  --glass-blur: 14px;
+  --shadow-sm: 0 1px 3px rgba(92, 78, 64, 0.06);
+  --shadow-md: 0 4px 12px rgba(92, 78, 64, 0.08);
+  --shadow-lg: 0 8px 30px rgba(92, 78, 64, 0.12);
+  --shadow-glow: 0 0 20px rgba(180, 120, 87, 0.3);
+  --shadow-glass: 0 8px 32px rgba(92, 78, 64, 0.1);
+
+  /* Radius — Strict */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Layout dimensions */
+  --sidebar-width: 280px;
+  --sidebar-collapsed: 72px;
+  --topnav-height: 72px;
+  --content-max-width: 1600px;
+
+  /* Spacing — 8px grid */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --text-heading-xl: 32px;
+  --text-heading-l: 24px;
+  --text-heading-m: 20px;
+  --text-body: 16px;
+  --text-caption: 14px;
+  --text-small: 12px;
+}
+
+/* ----------------------------------------------------------------
+   2. Base Resets & Defaults
+   ---------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--warm-gray-300);
+  background-color: var(--warm-white);
+  line-height: 1.6;
+  overflow: hidden;         /* Root shell handles scroll */
+  height: 100vh;
+  width: 100vw;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* ----------------------------------------------------------------
+   3. CSS Grid Shell — Enterprise Dashboard Architecture
+   ----------------------------------------------------------------
+   ┌────────────────────────────────────────┐
+   │              NAVBAR (72px)             │
+   ├──────────┬─────────────────────────────┤
+   │          │                             │
+   │ SIDEBAR  │       MAIN CONTENT          │
+   │ (280px)  │       (scrollable)          │
+   │          │                             │
+   └──────────┴─────────────────────────────┘
+   ---------------------------------------------------------------- */
+
+.app-shell {
+  display: grid;
+  grid-template-rows: var(--topnav-height) 1fr;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-areas:
+    "navbar  navbar"
+    "sidebar content";
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Collapsed sidebar */
+.app-shell--collapsed {
+  grid-template-columns: var(--sidebar-collapsed) 1fr;
+}
+
+/* Mobile — no sidebar column */
+@media (max-width: 768px) {
+  .app-shell,
+  .app-shell--collapsed {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "navbar"
+      "content";
+  }
+}
+
+/* --- Navbar area --- */
+.app-navbar {
+  grid-area: navbar;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: var(--topnav-height);
+  min-height: var(--topnav-height);
+}
+
+/* --- Sidebar area --- */
+.app-sidebar {
+  grid-area: sidebar;
+  z-index: 30;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--glass-border);
+  transition: width var(--transition-base);
+}
+
+@media (max-width: 768px) {
+  .app-sidebar {
+    display: none;  /* Hidden on mobile; drawer overlay used instead */
+  }
+}
+
+/* --- Content area --- */
+.app-content {
+  grid-area: content;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+.app-content-inner {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-4);           /* 32px Desktop */
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .app-content-inner {
+    padding: var(--space-3);         /* 24px Tablet */
+  }
+}
+
+@media (max-width: 640px) {
+  .app-content-inner {
+    padding: var(--space-2);         /* 16px Mobile */
+  }
+}
+
+/* ----------------------------------------------------------------
+   4. Typography Scale
+   ---------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--warm-gray-300);
+}
+
+/* ----------------------------------------------------------------
+   5. Focus / Accessibility
+   ---------------------------------------------------------------- */
+*:focus-visible {
+  outline: 2px solid var(--primary-200);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-2);
+  z-index: 9999;
+  padding: var(--space-1) var(--space-2);
+  background: var(--primary-300);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top var(--transition-fast);
+}
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+/* ----------------------------------------------------------------
+   6. Scrollbar
+   ---------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-100);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-200);
+}
+
+/* ----------------------------------------------------------------
+   7. Glassmorphism Utilities
+   ---------------------------------------------------------------- */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(228, 196, 180, 0.45);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ----------------------------------------------------------------
+   8. Animated Background — Keyframes
+   ---------------------------------------------------------------- */
+@keyframes meshGradient {
+  0%, 100% { background-position: 0% 50%; }
+  25% { background-position: 50% 0%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 100%; }
+}
+
+@keyframes floatBlob1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(80px, -60px) scale(1.05); }
+  50% { transform: translate(-40px, -100px) scale(0.95); }
+  75% { transform: translate(60px, 40px) scale(1.02); }
+}
+
+@keyframes floatBlob2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-100px, 60px) scale(1.08); }
+  66% { transform: translate(50px, -80px) scale(0.96); }
+}
+
+@keyframes floatBlob3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(60px, 80px) scale(1.04); }
+  40% { transform: translate(-80px, 20px) scale(0.98); }
+  60% { transform: translate(40px, -60px) scale(1.06); }
+  80% { transform: translate(-30px, -40px) scale(1); }
+}
+
+@keyframes radialPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.15); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInPage {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes progressFill {
+  from { width: 0; }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 0.5; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+/* ----------------------------------------------------------------
+   9. Animation Utility Classes
+   ---------------------------------------------------------------- */
+.animate-fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.animate-fade-in-page {
+  animation: fadeInPage 0.35s ease forwards;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-pulse-dot {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(228, 196, 180, 0.15) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes slideInRightDrawer {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.animate-slide-left {
+  animation: slideInRightDrawer 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered children */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeIn 0.4s ease forwards;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(7) { animation-delay: 0.35s; }
+.stagger-children > *:nth-child(8) { animation-delay: 0.4s; }
+
+/* ----------------------------------------------------------------
+   10. Background Layers
+   ---------------------------------------------------------------- */
+.bg-animated-mesh {
+  background: linear-gradient(
+    135deg,
+    var(--warm-white) 0%,
+    var(--very-light-orange) 25%,
+    var(--soft-cream) 50%,
+    var(--light-beige) 75%,
+    var(--warm-white) 100%
+  );
+  background-size: 400% 400%;
+  animation: meshGradient 25s ease infinite;
+}
+
+.bg-grid-subtle {
+  background-image:
+    linear-gradient(rgba(180, 120, 87, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(180, 120, 87, 0.035) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ----------------------------------------------------------------
+   11. Floating Blob Styles
+   ---------------------------------------------------------------- */
+.floating-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.2;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.blob-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--primary-100), transparent 70%);
+  top: -10%; right: -5%;
+  animation: floatBlob1 20s ease-in-out infinite;
+}
+
+.blob-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--primary-200), transparent 70%);
+  bottom: -8%; left: -5%;
+  animation: floatBlob2 25s ease-in-out infinite;
+}
+
+.blob-3 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, #FFD4B8, transparent 70%);
+  top: 40%; left: 30%;
+  animation: floatBlob3 30s ease-in-out infinite;
+}
+
+.radial-highlight {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 149, 122, 0.08), transparent 70%);
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: radialPulse 8s ease-in-out infinite;
+}
+
+/* Background container — always behind everything */
+.animated-bg-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ----------------------------------------------------------------
+   12. Sidebar Styles
+   ---------------------------------------------------------------- */
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--warm-gray-200);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sidebar-nav-item:hover {
+  background: var(--very-light-orange);
+  color: var(--warm-gray-300);
+}
+
+.sidebar-nav-item--active {
+  background: rgba(180, 120, 87, 0.1);
+  color: var(--primary-300);
+}
+
+/* Active indicator bar */
+.sidebar-nav-item--active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--primary-300);
+}
+
+.sidebar-nav-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ----------------------------------------------------------------
+   13. Card Styles — Enterprise Standard
+   ---------------------------------------------------------------- */
+.card-enterprise {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);      /* 20px */
+  padding: var(--space-3);              /* 24px */
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ----------------------------------------------------------------
+   14. Component Base Styles
+   ---------------------------------------------------------------- */
+.hover-lift {
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.press-effect {
+  transition: transform 80ms ease;
+}
+.press-effect:active {
+  transform: scale(0.97);
+}
+
+/* Button ripple */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 10%, transparent 10%);
+  transform: scale(0);
+  opacity: 0;
+  transition: none;
+}
+.btn-ripple:active::after {
+  animation: ripple 0.5s ease-out;
+}
+
+.truncate-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------------------
+   15. Page Layout Utility
+   ---------------------------------------------------------------- */
+.page-section-gap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);                  /* 24px between sections */
+}
+
+/* ----------------------------------------------------------------
+   16. Mobile Drawer Overlay
+   ---------------------------------------------------------------- */
+.mobile-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(92, 78, 64, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  z-index: 51;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-xl);
+  transition: transform var(--transition-base);
+}
+
+.mobile-drawer--open {
+  transform: translateX(0);
+}
+
+.mobile-drawer--closed {
+  transform: translateX(-100%);
+}
+
+/* ----------------------------------------------------------------
+   17. Floating Action Button — Fixed Position
+   ---------------------------------------------------------------- */
+.fab-container {
+  position: fixed;
+  bottom: var(--space-4);             /* 32px */
+  right: var(--space-4);              /* 32px */
+  z-index: 35;
+}
