@@ -1,10 +1,10 @@
 import { forwardRef } from 'react';
 
 const variants = {
-  primary: 'bg-[var(--primary-300)] text-white hover:bg-[var(--primary-200)] shadow-sm',
-  secondary: 'bg-[var(--light-beige)] text-[var(--warm-gray-300)] hover:bg-[var(--primary-100)] border border-[var(--glass-border)]',
-  ghost: 'bg-transparent text-[var(--warm-gray-200)] hover:bg-[var(--very-light-orange)] hover:text-[var(--warm-gray-300)]',
-  danger: 'bg-[var(--error)] text-white hover:opacity-90 shadow-sm',
+  primary: 'bg-gradient-to-r from-[var(--primary-300)] to-[var(--primary-200)] text-white shadow-md hover:shadow-lg border-transparent glass-shine',
+  secondary: 'bg-[var(--glass-bg)] backdrop-blur-md border-[var(--glass-border)] text-[var(--warm-gray-300)] shadow-sm hover:bg-white/80',
+  ghost: 'bg-transparent border-transparent text-[var(--warm-gray-200)] hover:bg-[var(--very-light-orange)] hover:text-[var(--warm-gray-300)]',
+  danger: 'bg-white border-[var(--error)] text-[var(--error)] hover:bg-[var(--error-light)]',
   success: 'bg-[var(--success)] text-white hover:opacity-90 shadow-sm',
 };
 

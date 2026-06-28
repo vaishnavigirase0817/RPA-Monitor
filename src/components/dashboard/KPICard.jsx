@@ -43,18 +43,21 @@ const KPICard = memo(function KPICard({ title, value, previousValue = 0, unit, i
   }, [animatedValue, title, unit]);
 
   return (
-    <Card hover className="relative overflow-hidden group">
+    <Card className="relative overflow-hidden group hover-lift cursor-pointer">
       {/* Decorative gradient accent */}
       <div
         className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-10 blur-2xl transition-opacity group-hover:opacity-20"
         style={{ background: color }}
       />
+      
+      {/* Glass shine hover effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0" />
 
-      <div className="relative">
+      <div className="relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-3">
           <span className="text-xs font-medium text-[var(--warm-gray-100)] uppercase tracking-wider">{title}</span>
-          <span className="text-lg" role="img" aria-hidden="true">{icon}</span>
+          <span className="text-lg group-hover:scale-125 transition-transform duration-300" role="img" aria-hidden="true">{icon}</span>
         </div>
 
         {/* Value */}
@@ -83,8 +86,8 @@ const KPICard = memo(function KPICard({ title, value, previousValue = 0, unit, i
           </div>
 
           {/* Mini sparkline */}
-          <svg width="98" height="28" viewBox="0 0 98 50" className="opacity-40">
-            <path d={sparklinePath} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <svg width="98" height="28" viewBox="0 0 98 50" className="opacity-40 group-hover:opacity-80 transition-opacity duration-300">
+            <path d={sparklinePath} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse-slow" />
           </svg>
         </div>
       </div>
