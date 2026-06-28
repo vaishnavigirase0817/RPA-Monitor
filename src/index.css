@@ -13,15 +13,16 @@
   --primary-100: #E4C4B4;
   --primary-200: #C8957A;
   --primary-300: #B47857;
+  --accent: #D98E67;
 
   /* Neutrals — warm tones */
-  --warm-white: #FDF8F4;
-  --soft-cream: #FAF0E6;
+  --warm-white: #E4C4B4; /* Base background from prompt */
+  --soft-cream: #F8F4F1; /* Secondary background from prompt */
   --light-beige: #F5E6D8;
   --very-light-orange: #FFF3E8;
   --warm-gray-100: #B8A99A;
-  --warm-gray-200: #8C7B6B;
-  --warm-gray-300: #5C4E40;
+  --warm-gray-200: #6E5647; /* Text Secondary */
+  --warm-gray-300: #3D2A20; /* Text Primary */
 
   /* Semantic */
   --success: #4CAF50;
@@ -34,8 +35,8 @@
   --info-light: #E3F2FD;
 
   /* Elevation / Shadows */
-  --glass-bg: rgba(255, 255, 255, 0.55);
-  --glass-border: rgba(228, 196, 180, 0.35);
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(180, 120, 87, 0.18);
   --glass-blur: 14px;
   --shadow-sm: 0 1px 3px rgba(92, 78, 64, 0.06);
   --shadow-md: 0 4px 12px rgba(92, 78, 64, 0.08);
