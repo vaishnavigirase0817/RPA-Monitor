@@ -6,14 +6,25 @@ import Button from '../components/ui/Button';
 import ProgressBar from '../components/ui/ProgressBar';
 import Modal from '../components/ui/Modal';
 import { BOTS } from '../data/mockData';
+import { useToast } from '../components/ui/ToastContext';
 
 export default function Bots() {
   const [bots] = useState(BOTS);
   const [selectedBot, setSelectedBot] = useState(null);
+  const { addToast } = useToast();
+
+  const handleAction = (action, botName = '') => {
+    addToast({
+      title: 'Action Triggered',
+      message: `${action} initiated${botName ? ` for ${botName}` : ''}.`,
+      type: 'info'
+    });
+    if (botName) setSelectedBot(null);
+  };
 
   const toolbar = (
     <div className="flex items-center justify-end">
-      <Button variant="primary" icon={<span>+</span>} onClick={() => {}}>
+      <Button variant="primary" icon={<span>+</span>} onClick={() => handleAction('Deploy New Bot')}>
         Deploy New Bot
       </Button>
     </div>
@@ -118,15 +129,15 @@ export default function Bots() {
 
             <div className="flex gap-2 pt-2">
               {selectedBot.status === 'Running' && (
-                <Button variant="secondary" onClick={() => setSelectedBot(null)}>Pause Bot</Button>
+                <Button variant="secondary" onClick={() => handleAction('Pause Bot', selectedBot.name)}>Pause Bot</Button>
               )}
               {(selectedBot.status === 'Idle' || selectedBot.status === 'Paused') && (
-                <Button variant="primary" onClick={() => setSelectedBot(null)}>Start Bot</Button>
+                <Button variant="primary" onClick={() => handleAction('Start Bot', selectedBot.name)}>Start Bot</Button>
               )}
               {selectedBot.status === 'Error' && (
-                <Button variant="danger" onClick={() => setSelectedBot(null)}>Restart Bot</Button>
+                <Button variant="danger" onClick={() => handleAction('Restart Bot', selectedBot.name)}>Restart Bot</Button>
               )}
-              <Button variant="ghost" onClick={() => setSelectedBot(null)}>View Logs</Button>
+              <Button variant="ghost" onClick={() => handleAction('View Logs', selectedBot.name)}>View Logs</Button>
             </div>
           </div>
         )}
