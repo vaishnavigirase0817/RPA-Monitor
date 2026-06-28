@@ -186,12 +186,13 @@ const ProcessTable = memo(function ProcessTable({ processes, isPaused }) {
           </span>
         </div>
         
-        <div className="flex flex-col md:flex-row gap-4 items-center">
+        {/* Search and Filters row */}
+        <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center w-full flex-wrap">
           <SearchInput
             value={search}
             onChange={setSearch}
             placeholder="Fuzzy search across ID, Name, Dept..."
-            className="w-full md:w-80"
+            className="w-full lg:w-[320px] flex-shrink-0"
           />
           
           {/* Dropdown Filters */}

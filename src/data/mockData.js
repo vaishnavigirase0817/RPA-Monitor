@@ -18,18 +18,18 @@ export const BOTS = [
 
 // ---- Processes ----
 export const PROCESSES = [
-  { id: 'PRC-1001', name: 'Invoice Processing Pipeline', bot: 'BOT-001', status: 'Running', priority: 'High', progress: 78, startTime: '08:30 AM', duration: '2h 14m', records: 1420, errors: 3, department: 'Finance' },
-  { id: 'PRC-1002', name: 'Email Classification Job', bot: 'BOT-002', status: 'Running', priority: 'Medium', progress: 45, startTime: '09:15 AM', duration: '1h 30m', records: 2800, errors: 12, department: 'Operations' },
-  { id: 'PRC-1003', name: 'Quarterly Report Gen', bot: 'BOT-004', status: 'Running', priority: 'High', progress: 92, startTime: '07:00 AM', duration: '3h 45m', records: 450, errors: 0, department: 'Analytics' },
-  { id: 'PRC-1004', name: 'Customer Data Import', bot: 'BOT-005', status: 'Failed', priority: 'Critical', progress: 34, startTime: '10:00 AM', duration: '0h 45m', records: 680, errors: 28, department: 'Sales' },
-  { id: 'PRC-1005', name: 'Payroll Batch Run', bot: 'BOT-006', status: 'Running', priority: 'Critical', progress: 61, startTime: '06:00 AM', duration: '4h 44m', records: 5200, errors: 1, department: 'HR' },
-  { id: 'PRC-1006', name: 'Inventory Reconciliation', bot: 'BOT-007', status: 'Paused', priority: 'Low', progress: 22, startTime: '11:00 AM', duration: '0h 30m', records: 340, errors: 0, department: 'Supply Chain' },
-  { id: 'PRC-1007', name: 'Compliance Audit Scan', bot: 'BOT-008', status: 'Running', priority: 'High', progress: 56, startTime: '08:00 AM', duration: '2h 45m', records: 1800, errors: 5, department: 'Legal' },
-  { id: 'PRC-1008', name: 'Support Ticket Routing', bot: 'BOT-009', status: 'Running', priority: 'Medium', progress: 88, startTime: '07:30 AM', duration: '3h 15m', records: 4200, errors: 8, department: 'Support' },
-  { id: 'PRC-1009', name: 'PDF Data Extraction', bot: 'BOT-010', status: 'Completed', priority: 'Low', progress: 100, startTime: '06:30 AM', duration: '4h 0m', records: 920, errors: 2, department: 'Finance' },
-  { id: 'PRC-1010', name: 'Data Migration Wave 3', bot: 'BOT-003', status: 'Queued', priority: 'Medium', progress: 0, startTime: '--', duration: '--', records: 0, errors: 0, department: 'IT' },
-  { id: 'PRC-1011', name: 'Vendor Payment Processing', bot: 'BOT-001', status: 'Running', priority: 'High', progress: 67, startTime: '09:00 AM', duration: '1h 45m', records: 890, errors: 1, department: 'Finance' },
-  { id: 'PRC-1012', name: 'Employee Offboarding', bot: 'BOT-006', status: 'Completed', priority: 'Medium', progress: 100, startTime: '05:00 AM', duration: '5h 44m', records: 120, errors: 0, department: 'HR' },
+  { id: 'PRC-1001', name: 'Invoice Processing Pipeline', bot: 'BOT-001', status: 'Running', priority: 'High', progress: 78, startTime: '08:30 AM', duration: '2h 14m', records: 1420, errors: 3, department: 'Finance', revenue: 45000 },
+  { id: 'PRC-1002', name: 'Email Classification Job', bot: 'BOT-002', status: 'Running', priority: 'Medium', progress: 45, startTime: '09:15 AM', duration: '1h 30m', records: 2800, errors: 12, department: 'Operations', revenue: 12500 },
+  { id: 'PRC-1003', name: 'Quarterly Report Gen', bot: 'BOT-004', status: 'Running', priority: 'High', progress: 92, startTime: '07:00 AM', duration: '3h 45m', records: 450, errors: 0, department: 'Analytics', revenue: 84000 },
+  { id: 'PRC-1004', name: 'Customer Data Import', bot: 'BOT-005', status: 'Failed', priority: 'Critical', progress: 34, startTime: '10:00 AM', duration: '0h 45m', records: 680, errors: 28, department: 'Sales', revenue: 0 },
+  { id: 'PRC-1005', name: 'Payroll Batch Run', bot: 'BOT-006', status: 'Running', priority: 'Critical', progress: 61, startTime: '06:00 AM', duration: '4h 44m', records: 5200, errors: 1, department: 'HR', revenue: 150000 },
+  { id: 'PRC-1006', name: 'Inventory Reconciliation', bot: 'BOT-007', status: 'Paused', priority: 'Low', progress: 22, startTime: '11:00 AM', duration: '0h 30m', records: 340, errors: 0, department: 'Supply Chain', revenue: 3200 },
+  { id: 'PRC-1007', name: 'Compliance Audit Scan', bot: 'BOT-008', status: 'Running', priority: 'High', progress: 56, startTime: '08:00 AM', duration: '2h 45m', records: 1800, errors: 5, department: 'Legal', revenue: 0 },
+  { id: 'PRC-1008', name: 'Support Ticket Routing', bot: 'BOT-009', status: 'Running', priority: 'Medium', progress: 88, startTime: '07:30 AM', duration: '3h 15m', records: 4200, errors: 8, department: 'Support', revenue: 18500 },
+  { id: 'PRC-1009', name: 'PDF Data Extraction', bot: 'BOT-010', status: 'Completed', priority: 'Low', progress: 100, startTime: '06:30 AM', duration: '4h 0m', records: 920, errors: 2, department: 'Finance', revenue: 9500 },
+  { id: 'PRC-1010', name: 'Data Migration Wave 3', bot: 'BOT-003', status: 'Queued', priority: 'Medium', progress: 0, startTime: '--', duration: '--', records: 0, errors: 0, department: 'IT', revenue: 0 },
+  { id: 'PRC-1011', name: 'Vendor Payment Processing', bot: 'BOT-001', status: 'Running', priority: 'High', progress: 67, startTime: '09:00 AM', duration: '1h 45m', records: 890, errors: 1, department: 'Finance', revenue: 112000 },
+  { id: 'PRC-1012', name: 'Employee Offboarding', bot: 'BOT-006', status: 'Completed', priority: 'Medium', progress: 100, startTime: '05:00 AM', duration: '5h 44m', records: 120, errors: 0, department: 'HR', revenue: 0 },
 ];
 
 // ---- KPI definitions ----
