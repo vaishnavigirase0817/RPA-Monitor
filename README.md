@@ -196,8 +196,7 @@ To handle the strict requirement of 200ms tick updates across thousands of virtu
 
 **Vaishnavi Girase**
 - GitHub: [@vaishnavigirase0817](https://github.com/vaishnavigirase0817)
-- LinkedIn: [Your Profile Placeholder]
-- Email: [Your Email Placeholder]
+- Email: [vaishnavigirase802@gmail.com]
 
 ---
 
