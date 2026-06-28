@@ -39,11 +39,11 @@ export default function TopNav({ onMenuClick, onSearchOpen, notificationCount = 
           aria-label="Open global search (Ctrl+K)"
         >
           <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/60 border border-[var(--glass-border)] hover:border-[var(--primary-200)] transition-colors text-sm text-[var(--warm-gray-200)] shadow-sm">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="flex-shrink-0">
               <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
             </svg>
-            <span>Search bots, processes, pages...</span>
-            <kbd className="ml-auto px-1.5 py-0.5 text-[10px] bg-white rounded-md border border-[var(--glass-border)] font-mono text-[var(--warm-gray-300)]">Ctrl+K</kbd>
+            <span className="truncate">Search bots, processes, pages...</span>
+            <kbd className="ml-auto flex-shrink-0 px-1.5 py-0.5 text-[10px] bg-white rounded-md border border-[var(--glass-border)] font-mono text-[var(--warm-gray-300)]">Ctrl+K</kbd>
           </div>
         </div>
       </div>
